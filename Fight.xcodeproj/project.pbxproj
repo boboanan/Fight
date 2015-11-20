@@ -17,6 +17,7 @@
 		971C9BC21BFEDFAE00A5669D /* FightUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 971C9BC11BFEDFAE00A5669D /* FightUITests.m */; };
 		971C9BD41BFF03F000A5669D /* CircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 971C9BD31BFF03F000A5669D /* CircleProgressView.m */; };
 		974DEC4D1BFF3E0F007F347B /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 974DEC4C1BFF3E0F007F347B /* PulsingHaloLayer.m */; };
+		974DEC501BFF4F41007F347B /* ZDProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974DEC4E1BFF4F41007F347B /* ZDProgressView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		971C9BD31BFF03F000A5669D /* CircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleProgressView.m; sourceTree = "<group>"; };
 		974DEC4B1BFF3E0F007F347B /* PulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulsingHaloLayer.h; sourceTree = "<group>"; };
 		974DEC4C1BFF3E0F007F347B /* PulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulsingHaloLayer.m; sourceTree = "<group>"; };
+		974DEC4E1BFF4F41007F347B /* ZDProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDProgressView.m; sourceTree = "<group>"; };
+		974DEC4F1BFF4F41007F347B /* ZDProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDProgressView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +110,8 @@
 		971C9B9B1BFEDFAE00A5669D /* Fight */ = {
 			isa = PBXGroup;
 			children = (
+				974DEC4E1BFF4F41007F347B /* ZDProgressView.m */,
+				974DEC4F1BFF4F41007F347B /* ZDProgressView.h */,
 				974DEC4B1BFF3E0F007F347B /* PulsingHaloLayer.h */,
 				974DEC4C1BFF3E0F007F347B /* PulsingHaloLayer.m */,
 				971C9BD21BFF03F000A5669D /* CircleProgressView.h */,
@@ -281,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				974DEC4D1BFF3E0F007F347B /* PulsingHaloLayer.m in Sources */,
+				974DEC501BFF4F41007F347B /* ZDProgressView.m in Sources */,
 				971C9BA41BFEDFAE00A5669D /* ViewController.m in Sources */,
 				971C9BD41BFF03F000A5669D /* CircleProgressView.m in Sources */,
 				971C9BA11BFEDFAE00A5669D /* AppDelegate.m in Sources */,
@@ -424,6 +430,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Fight/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "B-K.Fight";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -435,6 +442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Fight/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "B-K.Fight";
 				PRODUCT_NAME = "$(TARGET_NAME)";

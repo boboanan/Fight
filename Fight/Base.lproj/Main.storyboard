@@ -16,8 +16,52 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2qj-xy-h7m">
+                                <rect key="frame" x="260" y="460" width="80" height="80"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="B6R-6I-6Ua"/>
+                                    <constraint firstAttribute="width" constant="50" id="llZ-iZ-Ca3"/>
+                                    <constraint firstAttribute="width" constant="80" id="uuv-OG-3hK"/>
+                                </constraints>
+                                <state key="normal" title="Fight">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="40"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="llZ-iZ-Ca3"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="fightClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C5Q-uY-46T"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2qj-xy-h7m" secondAttribute="bottom" constant="83" id="20B-XF-gWC"/>
+                            <constraint firstItem="2qj-xy-h7m" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CNw-v0-4yf"/>
+                            <constraint firstItem="2qj-xy-h7m" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="272" id="G3N-2I-ES0"/>
+                            <constraint firstItem="2qj-xy-h7m" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="447" id="Nu4-Da-PgW"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2qj-xy-h7m" secondAttribute="bottom" constant="60" id="Ur6-vl-BoH"/>
+                            <constraint firstItem="2qj-xy-h7m" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zqi-29-Ty0"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="CNw-v0-4yf"/>
+                                <exclude reference="G3N-2I-ES0"/>
+                                <exclude reference="Nu4-Da-PgW"/>
+                                <exclude reference="20B-XF-gWC"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

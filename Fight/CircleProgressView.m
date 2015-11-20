@@ -21,7 +21,6 @@
 
 @end
 @implementation CircleProgressView
-
 -(void)setStrokeEnd:(double)strokeEnd
 {
     _strokeEnd = strokeEnd;
