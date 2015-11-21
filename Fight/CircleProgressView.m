@@ -47,10 +47,10 @@
     pulsingHaloLayer.animationDuration = 2.5;
     
     
-        _number = number%11;
-        self.label.text = [NSString stringWithFormat:@"%ld",(long)self.number];
+        _number = number%10;
+        self.label.text = [NSString stringWithFormat:@"%ld",(long)_number];
         self.strokeEnd = self.number/NUMBERLIMIT;
-    if(_number == 0){
+    if(number == 0){
         self.topProgressLayer.strokeColor = RandColor.CGColor;
     }
 }

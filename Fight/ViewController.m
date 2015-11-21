@@ -5,6 +5,10 @@
 //  Created by 锄禾日当午 on 15/11/20.
 //  Copyright © 2015年 B&K. All rights reserved.
 //
+#define RGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
+#define RGBAColor(r, g, b ,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
+#define RandColor RGBColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
+
 #define ATTACKLIMIT 10.0f
 #define LIFELIMIT 100.0f
 
@@ -15,7 +19,7 @@
 #import <CoreMotion/CoreMotion.h>
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 #import <CoreGraphics/CoreGraphics.h>
-#define SERVICE_TYPE @"etayu"
+#define SERVICE_TYPE @"cool-fight"
 
 
 @interface ViewController ()<MCSessionDelegate,MCBrowserViewControllerDelegate>
@@ -23,6 +27,8 @@
 @property (nonatomic,strong)ZDProgressView *progressView;
 //生命栏
 @property (nonatomic,strong)ZDProgressView *lifeProgressView;
+//战斗按钮
+@property (weak, nonatomic) IBOutlet UIButton *fightBtn;
 
 //链接
 @property(nonatomic,retain) MCPeerID *peelId;
@@ -40,6 +46,7 @@ static NSInteger attackCount = 0;
 static NSInteger life = 100;
 static const int attackEnergy = 10;
 static NSInteger defend = 0;
+static NSInteger shakeCount=0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,11 +75,27 @@ static NSInteger defend = 0;
         //对运动数据的处理
         [self motionHandleWithData:self.motionManager.accelerometerData];
     }];
+    [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(attack) userInfo:nil repeats:YES];
+
+}
+
+//攻击时的摇一摇
+-(void)attack{
+    CMAccelerometerData *data = self.motionManager.accelerometerData;
+    //发出招式
+    if (fabs(data.acceleration.x)>5.0 || fabs(data.acceleration.y)>5.0 || fabs(data.acceleration.z)>5.0 ) {
+        if(attackCount>0&&self.anotherPeelId!=nil){//连接成功且有攻击体力
+            attackCount--;
+            NSLog(@"发送信息");
+            NSData *data = [NSData dataWithBytes: &attackEnergy length: sizeof(attackEnergy)];
+            [self.session sendData:data toPeers:@[self.anotherPeelId] withMode:MCSessionSendDataReliable error:nil];
+        }
+    }
+    [self updateView];
 }
 
 //对运动数据的处理
 -(void)motionHandleWithData:(CMAccelerometerData *)data{
-    static NSInteger shakeCount=0;
     static NSDate *shakeStart;
     
     NSDate *now=[[NSDate alloc] init];
@@ -81,28 +104,29 @@ static NSInteger defend = 0;
     if ([now compare:checkDate]==NSOrderedDescending || shakeStart ==nil) {
         shakeStart=[[NSDate alloc] init];
         //增加点数
-        if (fabs(data.acceleration.x)>2.0 || fabs(data.acceleration.y)>2.0 || fabs(data.acceleration.z)>2.0 ) {
+        if ((fabs(data.acceleration.x)>2.0&&fabs(data.acceleration.x)<5.0) || (fabs(data.acceleration.y)>2.0&&fabs(data.acceleration.y)<5.0) || (fabs(data.acceleration.z)>2.0&&fabs(data.acceleration.z)<5.0) ) {
             shakeCount++;
-            self.circleProgressView.number = shakeCount;
+            self.circleProgressView.number = shakeCount%11;
             NSLog(@"%ld",(long)shakeCount);
-            if(shakeCount == 10){
-                attackCount++;
-                shakeCount = 0;
+            if(shakeCount%11 == 10){
+                if(attackCount < ATTACKLIMIT){
+                    attackCount++;
+                }
             }
             
         }
-        //发出招式
-        if (fabs(data.acceleration.x)>5.0 || fabs(data.acceleration.y)>5.0 || fabs(data.acceleration.z)>5.0 ) {
-            if(attackCount>0){
-                attackCount--;
-                if(self.browser!=nil){
-                    NSLog(@"发送信息");
-                    NSData *data = [NSData dataWithBytes: &attackEnergy length: sizeof(attackEnergy)];
-                    [self.session sendData:data toPeers:@[self.anotherPeelId] withMode:MCSessionSendDataReliable error:nil];
-                }
-                
-            }
-        }
+//        //发出招式
+//        if (fabs(data.acceleration.x)>5.0 || fabs(data.acceleration.y)>5.0 || fabs(data.acceleration.z)>5.0 ) {
+//            if(attackCount>0){
+//                attackCount--;
+//                if(self.browser!=nil){
+//                    NSLog(@"发送信息");
+//                    NSData *data = [NSData dataWithBytes: &attackEnergy length: sizeof(attackEnergy)];
+//                    [self.session sendData:data toPeers:@[self.anotherPeelId] withMode:MCSessionSendDataReliable error:nil];
+//                }
+//                
+//            }
+//        }
     }
     
     [self updateView];
@@ -110,6 +134,8 @@ static NSInteger defend = 0;
 
 -(void)linkSetup
 {
+    [self clear];
+    
     self.peelId = [[MCPeerID alloc] initWithDisplayName:[[UIDevice currentDevice] name]];
     NSLog(@"%@",self.peelId);
     self.session = [[MCSession alloc] initWithPeer:_peelId];
@@ -120,11 +146,29 @@ static NSInteger defend = 0;
 
 //fight按钮
 - (IBAction)fightClick:(id)sender {
-    if (nil == _browser) {
-        self.browser = [[MCBrowserViewController alloc] initWithServiceType:SERVICE_TYPE session:_session] ;
-        _browser.delegate = self;
+    if([self.fightBtn.currentTitle isEqualToString:@"Fight"]){
+        //未开始
+        if (nil == _browser) {
+            self.browser = [[MCBrowserViewController alloc] initWithServiceType:SERVICE_TYPE session:_session] ;
+            _browser.delegate = self;
+        }
+        [self presentViewController:_browser animated:YES completion:nil];
+    }else{
+        //开始后停止
+        [self reStartSetup];
     }
-    [self presentViewController:_browser animated:YES completion:nil];
+}
+
+//重新开始，初始化设置
+-(void)reStartSetup{
+    attackCount = 0;
+    life = 100;
+    shakeCount = 0;
+    [self.fightBtn setTitle:@"Fight" forState:UIControlStateNormal];
+    [self updateView];
+    if (_session) {
+        [_session disconnect];
+    }
 }
 
 
@@ -168,6 +212,15 @@ static NSInteger defend = 0;
 
 }
 
+-(void)clear{
+    life = 100;
+    attackCount = 0;
+    shakeCount = 0;
+    [self updateView];
+    self.circleProgressView.number = 0;
+    
+}
+
 //链接相关
 
 #pragma mark- MCSessionDelegate
@@ -177,41 +230,43 @@ static NSInteger defend = 0;
     NSLog(@"lalalaaal%@",peerID);
     self.anotherPeelId = peerID;
     NSLog(@"环境改变");
+    
+    //战斗按钮激活
+    [self.fightBtn setTitle:@"Stop" forState:UIControlStateNormal];
+    
 }
 
 // Received data from remote peer
 - (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID{
-    NSLog(@"受到伤害");
-    
-    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    int attack = [str intValue];
-    NSLog(@"attack:%d",attack);
-    long destroy = attackEnergy-defend;
-    
-    if(destroy>=0){
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            life= life - destroy;
-            [self updateView];
-            if(life<=0){
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"you lose" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
-                [alert show];
-                [self clear];
-                NSData *data =  [@"you win" dataUsingEncoding:NSUTF8StringEncoding];
-                [self.session sendData:data toPeers:@[self.anotherPeelId] withMode:MCSessionSendDataReliable error:nil];
-            }
-            
-        });
+    if(peerID ==self.anotherPeelId){
+        NSLog(@"受到伤害");
+        
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        int attack = [str intValue];
+        NSLog(@"attack:%d",attack);
+        long destroy = attackEnergy-defend;
+        
+        if(destroy>=0){
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                life= life - destroy;
+                [self updateView];
+                if(life<=0){
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"you lose" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
+                    [alert show];
+                    [self clear];
+                    if (_session) {
+                        [_session disconnect];
+                    }
+                }
+                
+            });
+        }
     }
+ 
 }
 
--(void)clear{
-    life =0;
-    attackCount = 0;
-    [self updateView];
-    self.circleProgressView.number = 0;
-    
-}
+
 // Received a byte stream from remote peer
 - (void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID{
     //    NSLog(@"session:%@ didReceiveStream:%@ fromPeer:%@",session,stream,peerID);
