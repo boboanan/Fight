@@ -12,6 +12,7 @@
 #import "CircleProgressView.h"
 #import "ZDProgressView.h"
 
+#import <CoreMotion/CoreMotion.h>
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 #import <CoreGraphics/CoreGraphics.h>
 #define SERVICE_TYPE @"etayu"
@@ -30,7 +31,8 @@
 @property(nonatomic,retain) MCAdvertiserAssistant *advertiserAssistant;
 @property(nonatomic,retain) MCBrowserViewController *browser;
 
-
+//core motion加速计获取
+@property (nonatomic,strong)CMMotionManager *motionManager;
 @end
 
 @implementation ViewController
@@ -43,13 +45,67 @@ static NSInteger defend = 0;
     [super viewDidLoad];
     //初始化界面
     [self setUpView];
-    UIAccelerometer *accelerometer = [UIAccelerometer sharedAccelerometer];
-    accelerometer.delegate = self;
-    accelerometer.updateInterval = 1/60.0f;
+    
+    //core motion加速计
+    [self addMotionManager];
     
     //链接设置
     [self linkSetup];
     
+}
+
+-(void)addMotionManager{
+    
+    self.motionManager = [[CMMotionManager alloc] init];
+    if (!self.motionManager.accelerometerAvailable) {
+        // fail code // 检查传感器到底在设备上是否可用
+    }
+    self.motionManager.accelerometerUpdateInterval = 0.01; // 告诉manager，更新频率是100Hz
+//    [self.motionManager startAccelerometerUpdates]; // 开始更新，后台线程开始运行。这是pull方式。
+    //push 方式
+    [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMAccelerometerData *latestAcc, NSError *error)
+    {
+        //对运动数据的处理
+        [self motionHandleWithData:self.motionManager.accelerometerData];
+    }];
+}
+
+//对运动数据的处理
+-(void)motionHandleWithData:(CMAccelerometerData *)data{
+    static NSInteger shakeCount=0;
+    static NSDate *shakeStart;
+    
+    NSDate *now=[[NSDate alloc] init];
+    NSDate *checkDate=[[NSDate alloc] initWithTimeInterval:0.1f sinceDate:shakeStart];
+    
+    if ([now compare:checkDate]==NSOrderedDescending || shakeStart ==nil) {
+        shakeStart=[[NSDate alloc] init];
+        //增加点数
+        if (fabs(data.acceleration.x)>2.0 || fabs(data.acceleration.y)>2.0 || fabs(data.acceleration.z)>2.0 ) {
+            shakeCount++;
+            self.circleProgressView.number = shakeCount;
+            NSLog(@"%ld",(long)shakeCount);
+            if(shakeCount == 10){
+                attackCount++;
+                shakeCount = 0;
+            }
+            
+        }
+        //发出招式
+        if (fabs(data.acceleration.x)>5.0 || fabs(data.acceleration.y)>5.0 || fabs(data.acceleration.z)>5.0 ) {
+            if(attackCount>0){
+                attackCount--;
+                if(self.browser!=nil){
+                    NSLog(@"发送信息");
+                    NSData *data = [NSData dataWithBytes: &attackEnergy length: sizeof(attackEnergy)];
+                    [self.session sendData:data toPeers:@[self.anotherPeelId] withMode:MCSessionSendDataReliable error:nil];
+                }
+                
+            }
+        }
+    }
+    
+    [self updateView];
 }
 
 -(void)linkSetup
@@ -72,43 +128,6 @@ static NSInteger defend = 0;
 }
 
 
-- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
-    static NSInteger shakeCount=0;
-    static NSDate *shakeStart;
-    
-    NSDate *now=[[NSDate alloc] init];
-    NSDate *checkDate=[[NSDate alloc] initWithTimeInterval:0.1f sinceDate:shakeStart];
-    
-    if ([now compare:checkDate]==NSOrderedDescending || shakeStart ==nil) {
-        shakeStart=[[NSDate alloc] init];
-        //增加点数
-        if (fabs(acceleration.x)>2.0 || fabs(acceleration.y)>2.0 || fabs(acceleration.z)>2.0 ) {
-            shakeCount++;
-            self.circleProgressView.number = shakeCount;
-            NSLog(@"%ld",(long)shakeCount);
-            if(shakeCount == 10){
-                attackCount++;
-                shakeCount = 0;
-            }
-    
-        }
-        //发出招式
-        if (fabs(acceleration.x)>5.0 || fabs(acceleration.y)>5.0 || fabs(acceleration.z)>5.0 ) {
-            if(attackCount>0){
-                attackCount--;
-                if(self.browser!=nil){
-                    NSLog(@"发送信息");
-                    NSData *data = [NSData dataWithBytes: &attackEnergy length: sizeof(attackEnergy)];
-                    [self.session sendData:data toPeers:@[self.anotherPeelId] withMode:MCSessionSendDataReliable error:nil];
-                }
-                
-            }
-        }
-    }
-    
-    [self updateView];
-}
-
 
 
 -(void)setUpView
@@ -124,7 +143,7 @@ static NSInteger defend = 0;
     //增加攻击栏
     ZDProgressView *progressView = [[ZDProgressView alloc] initWithFrame:CGRectMake(0, 0, 2*self.view.bounds.size.width/3, 40)];
     progressView.center = CGPointMake(self.view.bounds.size.width/2, 50);
-    progressView.text = [NSString stringWithFormat:@"fight值:%d",attackCount];
+    progressView.text = [NSString stringWithFormat:@"fight值:%ld",(long)attackCount];
     progressView.progress = attackCount/ATTACKLIMIT;
     progressView.prsColor = [UIColor whiteColor];
     [self.view addSubview:progressView];
@@ -133,7 +152,7 @@ static NSInteger defend = 0;
     //添加生命栏
     ZDProgressView *lifeProgressView = [[ZDProgressView alloc] initWithFrame:CGRectMake(0, 0, 2*self.view.bounds.size.width/3, 40)];
     lifeProgressView.center = CGPointMake(self.view.bounds.size.width/2, 60+self.progressView.frame.size.height);
-    lifeProgressView.text = [NSString stringWithFormat:@"生命值:%d",life];
+    lifeProgressView.text = [NSString stringWithFormat:@"生命值:%ld",(long)life];
     lifeProgressView.progress = life/LIFELIMIT;
     lifeProgressView.prsColor = [UIColor whiteColor];
     [self.view addSubview:lifeProgressView];
@@ -142,7 +161,7 @@ static NSInteger defend = 0;
 }
 
 -(void)updateView{
-    self.progressView.text = [NSString stringWithFormat:@"fight值:%d",attackCount];
+    self.progressView.text = [NSString stringWithFormat:@"fight值:%ld",(long)attackCount];
     self.progressView.progress = attackCount/ATTACKLIMIT;
     self.lifeProgressView.text = [NSString stringWithFormat:@"生命值:%ld",(long)life];
     self.lifeProgressView.progress = life/LIFELIMIT;
@@ -162,30 +181,18 @@ static NSInteger defend = 0;
 
 // Received data from remote peer
 - (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID{
-    //    NSLog(@"session:%@ didReceiveData:%@ fromPeer:%@",session,data,peerID);
-    //    NSString *str = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-    //
-    //    if([str isEqual:@"you win"]){
-    //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"you win" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
-    //        [alert show];
-    //        [self clearClick:nil];
-    //    }
     NSLog(@"受到伤害");
     
     NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
     int attack = [str intValue];
     NSLog(@"attack:%d",attack);
-    //    life -= num;
-    int destroy = attackEnergy-defend;
+    long destroy = attackEnergy-defend;
     
-    NSLog(@"%d",defend);
     if(destroy>=0){
-        life= life - destroy;
-        [self updateView];
-       
         dispatch_sync(dispatch_get_main_queue(), ^{
-            
+            life= life - destroy;
+            [self updateView];
             if(life<=0){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"you lose" message:nil delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
                 [alert show];
