@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -20,7 +21,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2qj-xy-h7m">
                                 <rect key="frame" x="260" y="460" width="80" height="80"/>
                                 <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.50196081400000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="B6R-6I-6Ua"/>
                                     <constraint firstAttribute="width" constant="50" id="llZ-iZ-Ca3"/>
@@ -44,19 +45,56 @@
                                     <action selector="fightClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C5Q-uY-46T"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSI-D5-Aab">
+                                <rect key="frame" x="280" y="550" width="40" height="40"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Iju-ek-yIt"/>
+                                    <constraint firstAttribute="width" constant="50" id="Ls0-iz-vxJ"/>
+                                    <constraint firstAttribute="width" constant="40" id="PA1-Uw-OhN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="21"/>
+                                <state key="normal" title="S">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Ls0-iz-vxJ"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="setupBtnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mYi-Vx-itT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="2qj-xy-h7m" firstAttribute="centerX" secondItem="nSI-D5-Aab" secondAttribute="centerX" constant="100" id="0he-1K-AYN"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2qj-xy-h7m" secondAttribute="bottom" constant="83" id="20B-XF-gWC"/>
                             <constraint firstItem="2qj-xy-h7m" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CNw-v0-4yf"/>
                             <constraint firstItem="2qj-xy-h7m" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="272" id="G3N-2I-ES0"/>
+                            <constraint firstItem="nSI-D5-Aab" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Nfl-aR-aut"/>
                             <constraint firstItem="2qj-xy-h7m" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="447" id="Nu4-Da-PgW"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2qj-xy-h7m" secondAttribute="bottom" constant="60" id="Ur6-vl-BoH"/>
+                            <constraint firstItem="nSI-D5-Aab" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="43" id="aO8-mv-9TT"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="nSI-D5-Aab" secondAttribute="bottom" constant="10" id="eiX-EJ-JgQ"/>
+                            <constraint firstItem="nSI-D5-Aab" firstAttribute="baseline" secondItem="2qj-xy-h7m" secondAttribute="baseline" id="qij-QX-727"/>
+                            <constraint firstItem="nSI-D5-Aab" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="43" id="vDl-1p-ub0"/>
                             <constraint firstItem="2qj-xy-h7m" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zqi-29-Ty0"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="aO8-mv-9TT"/>
+                                <exclude reference="qij-QX-727"/>
+                                <exclude reference="vDl-1p-ub0"/>
+                                <exclude reference="0he-1K-AYN"/>
                                 <exclude reference="CNw-v0-4yf"/>
                                 <exclude reference="G3N-2I-ES0"/>
                                 <exclude reference="Nu4-Da-PgW"/>
@@ -66,11 +104,31 @@
                     </view>
                     <connections>
                         <outlet property="fightBtn" destination="2qj-xy-h7m" id="r2R-AN-aIq"/>
+                        <outlet property="setupBtn" destination="nSI-D5-Aab" id="3Hm-6C-unS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="230" y="335"/>
+        </scene>
+        <!--Setup View Controller-->
+        <scene sceneID="y7U-go-V2A">
+            <objects>
+                <viewController storyboardIdentifier="SetupView" id="Wxq-ju-N69" customClass="SetupViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uct-tG-CXP"/>
+                        <viewControllerLayoutGuide type="bottom" id="RQc-MO-j4Z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Xlp-A6-Kwa">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="55v-J4-Y0j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="894" y="345"/>
         </scene>
     </scenes>
 </document>

@@ -20,7 +20,9 @@
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 #import <CoreGraphics/CoreGraphics.h>
 #define SERVICE_TYPE @"cool-fight"
-
+//专场动画
+#import "JTMaterialTransition.h"
+#import "SetupViewController.h"
 
 @interface ViewController ()<MCSessionDelegate,MCBrowserViewControllerDelegate>
 @property (nonatomic, strong)CircleProgressView *circleProgressView;
@@ -29,6 +31,10 @@
 @property (nonatomic,strong)ZDProgressView *lifeProgressView;
 //战斗按钮
 @property (weak, nonatomic) IBOutlet UIButton *fightBtn;
+//设置按钮
+@property (weak, nonatomic) IBOutlet UIButton *setupBtn;
+//专场动画
+@property (nonatomic) JTMaterialTransition *transition;
 
 //链接
 @property(nonatomic,retain) MCPeerID *peelId;
@@ -59,6 +65,16 @@ static NSInteger shakeCount=0;
     //链接设置
     [self linkSetup];
     
+}
+
+//设置按钮触发事件
+- (IBAction)setupBtnClick:(id)sender {
+    UIViewController *controller = [SetupViewController new];
+    
+    controller.modalPresentationStyle = UIModalPresentationCustom;
+    controller.transitioningDelegate = self;
+    
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 -(void)addMotionManager{
@@ -202,6 +218,9 @@ static NSInteger shakeCount=0;
     [self.view addSubview:lifeProgressView];
     self.lifeProgressView = lifeProgressView;
     
+    //添加专场动画
+    [self createTransition];
+    
 }
 
 -(void)updateView{
@@ -221,8 +240,27 @@ static NSInteger shakeCount=0;
     
 }
 
-//链接相关
+#pragma mark - Transition
 
+- (void)createTransition
+{
+    self.transition = [[JTMaterialTransition alloc] initWithAnimatedView:self.setupBtn];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
+                                                                  presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    self.transition.reverse = NO;
+    return self.transition;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    self.transition.reverse = YES;
+    return self.transition;
+}
+
+//链接相关
 #pragma mark- MCSessionDelegate
 // Remote peer changed state
 - (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state{

@@ -9,15 +9,17 @@
 /* Begin PBXBuildFile section */
 		971C9B9E1BFEDFAE00A5669D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 971C9B9D1BFEDFAE00A5669D /* main.m */; };
 		971C9BA11BFEDFAE00A5669D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 971C9BA01BFEDFAE00A5669D /* AppDelegate.m */; };
-		971C9BA41BFEDFAE00A5669D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 971C9BA31BFEDFAE00A5669D /* ViewController.m */; };
 		971C9BA71BFEDFAE00A5669D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 971C9BA51BFEDFAE00A5669D /* Main.storyboard */; };
 		971C9BA91BFEDFAE00A5669D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 971C9BA81BFEDFAE00A5669D /* Assets.xcassets */; };
 		971C9BAC1BFEDFAE00A5669D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 971C9BAA1BFEDFAE00A5669D /* LaunchScreen.storyboard */; };
 		971C9BB71BFEDFAE00A5669D /* FightTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 971C9BB61BFEDFAE00A5669D /* FightTests.m */; };
 		971C9BC21BFEDFAE00A5669D /* FightUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 971C9BC11BFEDFAE00A5669D /* FightUITests.m */; };
-		971C9BD41BFF03F000A5669D /* CircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 971C9BD31BFF03F000A5669D /* CircleProgressView.m */; };
-		974DEC4D1BFF3E0F007F347B /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 974DEC4C1BFF3E0F007F347B /* PulsingHaloLayer.m */; };
-		974DEC501BFF4F41007F347B /* ZDProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974DEC4E1BFF4F41007F347B /* ZDProgressView.m */; };
+		972237721C01DBF30085A211 /* CircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9722376A1C01DBF30085A211 /* CircleProgressView.m */; };
+		972237731C01DBF30085A211 /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9722376C1C01DBF30085A211 /* PulsingHaloLayer.m */; };
+		972237741C01DBF30085A211 /* ZDProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9722376E1C01DBF30085A211 /* ZDProgressView.m */; };
+		972237751C01DBF30085A211 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 972237711C01DBF30085A211 /* ViewController.m */; };
+		9722377D1C01DC5E0085A211 /* SetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9722377C1C01DC5E0085A211 /* SetupViewController.m */; };
+		972237811C01E44E0085A211 /* JTMaterialTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 972237801C01E44E0085A211 /* JTMaterialTransition.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,8 +44,6 @@
 		971C9B9D1BFEDFAE00A5669D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		971C9B9F1BFEDFAE00A5669D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		971C9BA01BFEDFAE00A5669D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		971C9BA21BFEDFAE00A5669D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		971C9BA31BFEDFAE00A5669D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		971C9BA61BFEDFAE00A5669D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		971C9BA81BFEDFAE00A5669D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		971C9BAB1BFEDFAE00A5669D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -54,12 +54,18 @@
 		971C9BBD1BFEDFAE00A5669D /* FightUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FightUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		971C9BC11BFEDFAE00A5669D /* FightUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FightUITests.m; sourceTree = "<group>"; };
 		971C9BC31BFEDFAE00A5669D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		971C9BD21BFF03F000A5669D /* CircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleProgressView.h; sourceTree = "<group>"; };
-		971C9BD31BFF03F000A5669D /* CircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleProgressView.m; sourceTree = "<group>"; };
-		974DEC4B1BFF3E0F007F347B /* PulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulsingHaloLayer.h; sourceTree = "<group>"; };
-		974DEC4C1BFF3E0F007F347B /* PulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulsingHaloLayer.m; sourceTree = "<group>"; };
-		974DEC4E1BFF4F41007F347B /* ZDProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDProgressView.m; sourceTree = "<group>"; };
-		974DEC4F1BFF4F41007F347B /* ZDProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDProgressView.h; sourceTree = "<group>"; };
+		972237691C01DBF30085A211 /* CircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleProgressView.h; sourceTree = "<group>"; };
+		9722376A1C01DBF30085A211 /* CircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleProgressView.m; sourceTree = "<group>"; };
+		9722376B1C01DBF30085A211 /* PulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulsingHaloLayer.h; sourceTree = "<group>"; };
+		9722376C1C01DBF30085A211 /* PulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulsingHaloLayer.m; sourceTree = "<group>"; };
+		9722376D1C01DBF30085A211 /* ZDProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDProgressView.h; sourceTree = "<group>"; };
+		9722376E1C01DBF30085A211 /* ZDProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDProgressView.m; sourceTree = "<group>"; };
+		972237701C01DBF30085A211 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		972237711C01DBF30085A211 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		9722377B1C01DC5E0085A211 /* SetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupViewController.h; sourceTree = "<group>"; };
+		9722377C1C01DC5E0085A211 /* SetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupViewController.m; sourceTree = "<group>"; };
+		9722377F1C01E44E0085A211 /* JTMaterialTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTMaterialTransition.h; sourceTree = "<group>"; };
+		972237801C01E44E0085A211 /* JTMaterialTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTMaterialTransition.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,16 +116,12 @@
 		971C9B9B1BFEDFAE00A5669D /* Fight */ = {
 			isa = PBXGroup;
 			children = (
-				974DEC4E1BFF4F41007F347B /* ZDProgressView.m */,
-				974DEC4F1BFF4F41007F347B /* ZDProgressView.h */,
-				974DEC4B1BFF3E0F007F347B /* PulsingHaloLayer.h */,
-				974DEC4C1BFF3E0F007F347B /* PulsingHaloLayer.m */,
-				971C9BD21BFF03F000A5669D /* CircleProgressView.h */,
-				971C9BD31BFF03F000A5669D /* CircleProgressView.m */,
+				9722377E1C01E44E0085A211 /* JTMaterialTransition */,
+				9722377A1C01DC460085A211 /* SetupView */,
+				972237681C01DBF30085A211 /* Lib */,
+				9722376F1C01DBF30085A211 /* MainView */,
 				971C9B9F1BFEDFAE00A5669D /* AppDelegate.h */,
 				971C9BA01BFEDFAE00A5669D /* AppDelegate.m */,
-				971C9BA21BFEDFAE00A5669D /* ViewController.h */,
-				971C9BA31BFEDFAE00A5669D /* ViewController.m */,
 				971C9BA51BFEDFAE00A5669D /* Main.storyboard */,
 				971C9BA81BFEDFAE00A5669D /* Assets.xcassets */,
 				971C9BAA1BFEDFAE00A5669D /* LaunchScreen.storyboard */,
@@ -153,6 +155,46 @@
 				971C9BC31BFEDFAE00A5669D /* Info.plist */,
 			);
 			path = FightUITests;
+			sourceTree = "<group>";
+		};
+		972237681C01DBF30085A211 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				972237691C01DBF30085A211 /* CircleProgressView.h */,
+				9722376A1C01DBF30085A211 /* CircleProgressView.m */,
+				9722376B1C01DBF30085A211 /* PulsingHaloLayer.h */,
+				9722376C1C01DBF30085A211 /* PulsingHaloLayer.m */,
+				9722376D1C01DBF30085A211 /* ZDProgressView.h */,
+				9722376E1C01DBF30085A211 /* ZDProgressView.m */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		9722376F1C01DBF30085A211 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				972237701C01DBF30085A211 /* ViewController.h */,
+				972237711C01DBF30085A211 /* ViewController.m */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		9722377A1C01DC460085A211 /* SetupView */ = {
+			isa = PBXGroup;
+			children = (
+				9722377B1C01DC5E0085A211 /* SetupViewController.h */,
+				9722377C1C01DC5E0085A211 /* SetupViewController.m */,
+			);
+			path = SetupView;
+			sourceTree = "<group>";
+		};
+		9722377E1C01E44E0085A211 /* JTMaterialTransition */ = {
+			isa = PBXGroup;
+			children = (
+				9722377F1C01E44E0085A211 /* JTMaterialTransition.h */,
+				972237801C01E44E0085A211 /* JTMaterialTransition.m */,
+			);
+			path = JTMaterialTransition;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,11 +327,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				974DEC4D1BFF3E0F007F347B /* PulsingHaloLayer.m in Sources */,
-				974DEC501BFF4F41007F347B /* ZDProgressView.m in Sources */,
-				971C9BA41BFEDFAE00A5669D /* ViewController.m in Sources */,
-				971C9BD41BFF03F000A5669D /* CircleProgressView.m in Sources */,
+				9722377D1C01DC5E0085A211 /* SetupViewController.m in Sources */,
+				972237811C01E44E0085A211 /* JTMaterialTransition.m in Sources */,
+				972237731C01DBF30085A211 /* PulsingHaloLayer.m in Sources */,
+				972237751C01DBF30085A211 /* ViewController.m in Sources */,
+				972237741C01DBF30085A211 /* ZDProgressView.m in Sources */,
 				971C9BA11BFEDFAE00A5669D /* AppDelegate.m in Sources */,
+				972237721C01DBF30085A211 /* CircleProgressView.m in Sources */,
 				971C9B9E1BFEDFAE00A5669D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

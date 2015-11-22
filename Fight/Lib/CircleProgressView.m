@@ -42,7 +42,7 @@
 //    [self.layer addSublayer:pulsingHaloLayer];
     [self.layer insertSublayer:pulsingHaloLayer below:self.label.layer];
     pulsingHaloLayer.haloLayerNumber = 1;
-    pulsingHaloLayer.radius = CIRCLERADIUS;
+    pulsingHaloLayer.radius = CIRCLERADIUS*2;
     [pulsingHaloLayer setBackgroundColor:RandColor.CGColor];
     pulsingHaloLayer.animationDuration = 2.5;
     
@@ -86,10 +86,17 @@
 
     
     self.backgroundColor = [UIColor clearColor];
-    CAShapeLayer *bottomLayer = [self getLayerInView:self];
+    //最底层
+    CAShapeLayer *bottomLayer1 = [self getLayerInView:self];
+    bottomLayer1.lineWidth     = 40.0f;
+//    bottomLayer1.strokeColor = [UIColor colorWithRed:0.86f green:0.86f blue:0.86f alpha:0.2f].CGColor;
+    bottomLayer1.strokeColor  = [UIColor yellowColor].CGColor;
+    //透明部分
+    CAShapeLayer *bottomLayer2 = [self getLayerInView:self];
+    bottomLayer2.strokeColor = [UIColor colorWithRed:0.86f green:0.86f blue:0.86f alpha:0.6f].CGColor;
+    //变化部分
     self.topProgressLayer = [self getLayerInView:self];
     self.topProgressLayer.strokeEnd = 0;
-    bottomLayer.strokeColor = [UIColor colorWithRed:0.86f green:0.86f blue:0.86f alpha:0.4f].CGColor;
 }
 
 
