@@ -18,7 +18,17 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
+    [self addBackground];
+    
     [self createCloseButton];
+    
+    
+}
+
+-(void)addBackground{
+    UIImageView *bgView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    bgView.image = [UIImage imageNamed:@"intro"];
+    [self.view addSubview:bgView];
 }
 
 - (void)createCloseButton
@@ -36,6 +46,8 @@
     closeButton.layer.cornerRadius = 25;
     [self.view addSubview:closeButton];
 }
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -92,6 +92,16 @@ static NSInteger shakeCount=0;
         [self motionHandleWithData:self.motionManager.accelerometerData];
     }];
     [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(attack) userInfo:nil repeats:YES];
+    
+    //陀螺仪
+//    self.motionManager .gyroUpdateInterval = 0.01;
+//    if ([self.motionManager isGyroAvailable] == YES) {
+//        [self.motionManager  startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
+//            CMRotationRate rotationRate = self.motionManager.deviceMotion.rotationRate;
+//       
+//         
+//        }];
+//    }
 
 }
 
@@ -172,6 +182,8 @@ static NSInteger shakeCount=0;
     }else{
         //开始后停止
         [self reStartSetup];
+        [self.fightBtn setTitle:@"Fight" forState:UIControlStateNormal];
+       
     }
 }
 
@@ -180,7 +192,6 @@ static NSInteger shakeCount=0;
     attackCount = 0;
     life = 100;
     shakeCount = 0;
-    [self.fightBtn setTitle:@"Fight" forState:UIControlStateNormal];
     [self updateView];
     if (_session) {
         [_session disconnect];
@@ -269,8 +280,14 @@ static NSInteger shakeCount=0;
     self.anotherPeelId = peerID;
     NSLog(@"环境改变");
     
-    //战斗按钮激活
-    [self.fightBtn setTitle:@"Stop" forState:UIControlStateNormal];
+    //清零
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self clear];
+        [self updateView];
+        
+        //战斗按钮激活
+        [self.fightBtn setTitle:@"Stop" forState:UIControlStateNormal];
+    });
     
 }
 
